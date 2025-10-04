@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Novel Landing Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .navbar .brand {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ff6b6b;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('https://images.unsplash.com/photo-1512820790803-83ca734da794') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 1rem;
+      margin-top: 60px; /* to offset fixed navbar */
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      background-color: #ff6b6b;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #ff4c4c;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 4rem 1rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    /* Novels Grid */
+    .novel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .novel-card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .novel-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .novel-card img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .novel-card h3 {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .novel-card p {
+      font-size: 0.9rem;
+    }
+
+    /* About Section */
+    .about {
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .testimonial {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 700px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonial span {
+      font-weight: bold;
+      color: #555;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      text-align: center;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 0.5rem;
+      width: 250px;
+      margin-right: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .newsletter button {
+      padding: 0.5rem 1rem;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .newsletter button:hover {
+      background-color: #ff4c4c;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #333;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        width: 200px;
+        padding: 1rem;
+        gap: 1rem;
+        display: none;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+
+      .novel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .newsletter input[type="email"],
+      .newsletter button {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="brand">NovelLand</div>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <div class="nav-links" id="nav-links">
+      <a href="#home">Home</a>
+      <a href="#novels">Novels</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="home">
+    <div class="hero-content">
+      <h1>Explore Amazing Novels</h1>
+      <p>Dive into worlds of mystery, love, and adventure</p>
+      <a href="#novels" class="cta-button">Start Reading</a>
+    </div>
+  </header>
+
+  <!-- Novels Section -->
+  <section id="novels">
+    <h2>Featured Novels</h2>
+    <div class="novel-grid">
+      <div class="novel-card">
+        <img src="https://enandablog.files.wordpress.com/2012/11/img-20121126-01199-12.jpg?w=640" alt="The Time Keeper">
+        <h3>The Time Keeper</h3>
+        <p>A thrilling journey through time.</p>
+      </div>
+      <div class="novel-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Ky1J_CQbdGR7iTZX2vu8bWrG5h5BZRsHkA&s" alt="Love & Letters">
+        <h3>Love & Letters</h3>
+        <p>A heartwarming romance set in Paris.</p>
+      </div>
+      <div class="novel-card">
+        <img src="https://m.media-amazon.com/images/I/71GsHx54NgL._UF1000,1000_QL80_.jpg" alt="Dark Secrets">
+        <h3>Dark Secrets</h3>
+        <p>A mystery you won’t be able to put down.</p>
+      </div>
+      <div class="novel-card">
+        <img src="https://m.media-amazon.com/images/I/810fgTDosSL._UF1000,1000_QL80_.jpg" alt="Whispers of War">
+        <h3>Whispers of War</h3>
+        <p>Historical fiction full of emotion.</p>
+      </div>
+      <div class="novel-card">
+        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1677807576i/17690252.jpg" alt="Galaxy Rising">
+        <h3>Galaxy Rising</h3>
+        <p>Epic space adventure with alien intrigue.</p>
+      </div>
+      <div class="novel-card">
+        <img src="https://m.media-amazon.com/images/I/616+S8SxUyL._UF1000,1000_QL80_.jpg" alt="Echoes of the Past">
+        <h3>Echoes of the Past</h3>
+        <p>A drama that spans generations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>
+      We are passionate about connecting readers with the best fiction from around the world. Whether you love romance, sci-fi, thrillers, or classics, our library offers something for every kind of reader.
+    </p>
+  </section>
+
+  <!-- Testimonials -->
+  <section>
+    <h2>What Readers Say</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>"The best book collection I've come across online. I found my favorite author here!"</p>
+        <span>- Maya P.</span>
+      </div>
+      <div class="testimonial">
+        <p>"I can't stop reading. Each novel is a new adventure. Highly recommended!"</p>
+        <span>- David R.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="contact" class="newsletter">
+    <h2>Join Our Newsletter</h2>
+    <p>Get updates on new releases and exclusive offers</p>
+    <form onsubmit="event.preventDefault(); alert('Subscribed!')">
+      <input type="email" placeholder="Your email address" required />
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 NovelLand. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
